@@ -27,3 +27,18 @@ def banner():
     print(Fore.RED+pyfiglet.figlet_format(" P O R T  P Y", font="ansi_shadow"))
     print(Fore.RED+"                           PORT PY v1.0 (Starter Edition)")
     print(Fore.RED+"="*83)
+
+#-----------main----------
+def main():
+    banner()
+    target=input("\n[+] Target : ")
+    ip=resolve(target)
+    print(f"[+] Target IP : {ip}")
+    print("[1] Default Scan\n[2] Custom Range")
+    ch=input("[+] > ")
+    if ch=="1":
+        ports=DEFAULT_PORTS
+    else:
+        start=int(input("Start: "))
+        end=int(input("End: "))
+        ports=range(start,end+1)
