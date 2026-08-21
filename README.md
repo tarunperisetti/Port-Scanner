@@ -55,3 +55,114 @@ The scanner displays:
 - Number of closed ports
 - Number of findings
 - Scan duration
+
+Results are automatically exported to:
+
+- `scan_report.txt`
+- `scan_report.csv`
+
+### 🎨 Terminal Interface
+
+The application uses:
+
+- **PyFiglet** for the `PORT PY` ASCII banner.
+- **Colorama** for colored terminal output.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Language:** Python 3
+- **Networking:** Python `socket`
+- **Concurrency:** `concurrent.futures.ThreadPoolExecutor`
+- **ASCII Banner:** PyFiglet
+- **Terminal Colors:** Colorama
+- **Reporting:** Python `csv`
+- **Timing:** Python `time`
+
+---
+
+## 📦 Requirements
+
+### Prerequisites
+
+- Python 3.x
+- A Linux, macOS, or Windows environment with Python networking support
+- Permission to scan the target system
+
+### Install Dependencies
+
+```bash
+pip install pyfiglet colorama
+```
+
+If you are using Kali Linux, you can also use:
+
+```bash
+python3 -m pip install pyfiglet colorama
+```
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone or Download the Project
+
+Place `port.py` in your working directory.
+
+### 2. Install Dependencies
+
+```bash
+pip install pyfiglet colorama
+```
+
+### 3. Run the Scanner
+
+```bash
+python3 port.py
+```
+
+The program will display the PORT PY banner and ask for a target.
+
+---
+
+## 💻 Usage
+
+### Default Scan
+
+Run:
+
+```bash
+python3 port.py
+```
+
+Enter a hostname or IP address when prompted:
+
+```text
+[+] Target : 192.168.1.10
+```
+
+Then select:
+
+```text
+[1] Default Scan
+[2] Custom Range
+[+] >
+```
+
+Choosing `1` scans the following default ports:
+
+```text
+21, 22, 23, 25, 53, 80, 110, 139, 143, 443, 445, 3389
+```
+
+### Custom Port Range
+
+Choose option `2`:
+
+```text
+Start: 1
+End: 1000
+```
+
+The scanner then checks every TCP port from the starting port through the ending port.
