@@ -24,3 +24,34 @@ PORT PY performs multi-threaded TCP connect scanning, grabs service banners, che
 - Attempts to grab service banners from open ports.
 - Sends an HTTP `HEAD` request when scanning ports `80` or `8080`.
 - Displays the detected banner in the terminal.
+
+### 🛡️ Basic Vulnerability Detection
+
+PORT PY checks returned banners against predefined signatures:
+
+| Signature | Severity | CVE / Reference | Description |
+|---|---|---|---|
+| `Apache/2.4.49` | HIGH | CVE-2021-41773 | Path Traversal / Possible RCE |
+| `Apache/2.4.50` | HIGH | CVE-2021-42013 | Incomplete Fix |
+| `vsFTPd 2.3.4` | CRITICAL | CVE-2011-2523 | Backdoored release |
+| `OpenSSH_7.2` | MEDIUM | Multiple CVEs | Outdated OpenSSH |
+| `PHP/5.6` | HIGH | EOL | Unsupported PHP |
+
+> These checks are simple banner/signature matches. A match indicates that further verification is required; it does not prove that the target is exploitable.
+
+### 📊 Reporting
+
+The scanner displays:
+
+- Target IP
+- Port
+- Status
+- Service
+- Banner
+- Vulnerability severity
+- CVE/reference
+- Vulnerability description
+- Number of open ports
+- Number of closed ports
+- Number of findings
+- Scan duration
