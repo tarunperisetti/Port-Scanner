@@ -255,3 +255,59 @@ Severity
 CVE / Reference
 Description
 ```
+---
+
+## 📄 Report Formats
+
+### CSV
+
+The generated `scan_report.csv` contains:
+
+```text
+Port,Status,Service,Banner,Severity,CVE,Description
+```
+
+This makes the output convenient for opening in spreadsheet applications or processing with other scripts.
+
+### TXT
+
+The generated `scan_report.txt` stores each scan result as a Python dictionary representation.
+
+---
+
+## ⚠️ Limitations
+
+PORT PY is intentionally a **starter/educational scanner** and has several limitations:
+
+- It performs TCP connect scanning only.
+- It does not implement SYN/stealth scanning.
+- It does not perform UDP scanning.
+- Vulnerability detection relies on exact banner signatures.
+- A detected banner does not prove that a vulnerability is exploitable.
+- Services that do not provide banners may return `N/A`.
+- The current implementation reports failed TCP connections as `CLOSED`; it does not distinguish firewall-filtered ports from genuinely closed ports.
+- The service lookup relies on the operating system's service database.
+- There is no authentication or access-control layer because the tool is a local command-line scanner.
+
+---
+
+## 🔐 Responsible Use
+
+This project is intended for:
+
+- Cybersecurity learning
+- Authorized penetration testing
+- Network administration
+- Security labs
+- CTF environments
+- Testing systems you own or have explicit authorization to assess
+
+**Never scan systems without permission.** Unauthorized scanning may violate organizational policies, terms of service, or applicable laws.
+
+---
+
+## 📜 Version
+
+**PORT PY v1.0 — Starter Edition**
+
+Built as an educational Python TCP port-scanning project.
