@@ -39,36 +39,7 @@ PORT PY checks returned banners against predefined signatures:
 
 > These checks are simple banner/signature matches. A match indicates that further verification is required; it does not prove that the target is exploitable.
 
-### 📊 Reporting
 
-The scanner displays:
-
-- Target IP
-- Port
-- Status
-- Service
-- Banner
-- Vulnerability severity
-- CVE/reference
-- Vulnerability description
-- Number of open ports
-- Number of closed ports
-- Number of findings
-- Scan duration
-
-Results are automatically exported to:
-
-- `scan_report.txt`
-- `scan_report.csv`
-
-### 🎨 Terminal Interface
-
-The application uses:
-
-- **PyFiglet** for the `PORT PY` ASCII banner.
-- **Colorama** for colored terminal output.
-
----
 
 ## 🛠️ Tech Stack
 
@@ -80,29 +51,7 @@ The application uses:
 - **Reporting:** Python `csv`
 - **Timing:** Python `time`
 
----
 
-## 📦 Requirements
-
-### Prerequisites
-
-- Python 3.x
-- A Linux, macOS, or Windows environment with Python networking support
-- Permission to scan the target system
-
-### Install Dependencies
-
-```bash
-pip install pyfiglet colorama
-```
-
-If you are using Kali Linux, you can also use:
-
-```bash
-python3 -m pip install pyfiglet colorama
-```
-
----
 
 ## 🚀 Getting Started
 
@@ -166,3 +115,143 @@ End: 1000
 ```
 
 The scanner then checks every TCP port from the starting port through the ending port.
+
+---
+
+## 📋 Example Output
+
+```text
+===================================================================================
+                         P O R T  P Y
+                           PORT PY v1.0 (Starter Edition)
+===================================================================================
+
+[+] Target : 192.168.1.10
+[+] Target IP : 192.168.1.10
+[1] Default Scan
+[2] Custom Range
+[+] > 1
+
+======================================================================
+[+] PORT    STATUS    SERVICE     BANNER
+======================================================================
+[+] 22      OPEN      ssh         SSH-2.0-OpenSSH_7.2
+[+] 80      OPEN      http        HTTP/1.1 200 OK
+[+] 443     CLOSED   https       N/A
+======================================================================
+
+[+] Vulnerability Report
+======================================================================
+[+] 22/tcp [MEDIUM] Multiple CVEs - Outdated OpenSSH
+
+[+] Open ports : 2
+[+] Closed ports : 1
+[+] Findings   : 1
+[+] Time       : 2.14s
+[✓] Reports: scan_report.txt, scan_report.csv
+```
+
+> The output above is an example for documentation purposes. Actual results depend on the target.
+
+---
+
+## 📁 Project Structure
+
+```text
+PORT-PY/
+├── port.py
+├── scan_report.txt       # Generated after a scan
+├── scan_report.csv       # Generated after a scan
+└── README.md
+```
+
+---
+
+## 🧠 How It Works
+
+The scanning process follows these main steps:
+
+```text
+Target Host
+    │
+    ▼
+DNS / Host Resolution
+    │
+    ▼
+Select Default or Custom Ports
+    │
+    ▼
+Create Worker Threads
+    │
+    ▼
+TCP Connect Scan
+    │
+    ├── Connection succeeds ──► OPEN
+    │                              │
+    │                              ▼
+    │                         Banner Grab
+    │                              │
+    │                              ▼
+    │                       Signature Matching
+    │
+    └── Connection fails ───► CLOSED
+    │
+    ▼
+Sort Results by Port
+    │
+    ▼
+Display Scan & Vulnerability Reports
+    │
+    ▼
+Export TXT + CSV
+```
+
+---
+
+## 🔧 Implementation Details
+
+### Multi-threading
+
+The scanner uses `ThreadPoolExecutor` with up to **200 workers** to perform port checks concurrently.
+
+```python
+with ThreadPoolExecutor(max_workers=200) as ex:
+    futures = [ex.submit(scan, ip, p) for p in ports]
+```
+
+This allows multiple TCP connections to be tested at the same time instead of scanning ports strictly one after another.
+
+### TCP Connect Scan
+
+For each port, the scanner creates a TCP socket and attempts:
+
+```python
+s.connect_ex((ip, port))
+```
+
+A successful connection is reported as `OPEN`; otherwise the result is reported as `CLOSED`.
+
+### Banner Grabbing
+
+For open ports, PORT PY attempts to receive up to 1024 bytes from the service.
+
+For HTTP ports `80` and `8080`, it sends:
+
+```http
+HEAD / HTTP/1.0
+Host: test
+```
+
+The returned data is then normalized and displayed as the banner.
+
+### Vulnerability Matching
+
+The `check_vuln()` function compares the detected banner against the predefined `VULNS` dictionary.
+
+A matching signature returns:
+
+```text
+Severity
+CVE / Reference
+Description
+```

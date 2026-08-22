@@ -113,3 +113,32 @@ def main():
             r=f.result()
             if r:
                 results.append(r)
+
+    results.sort(key=lambda x:x["port"])
+    print(Fore.RED+"\n"+"="*70)
+    print(Fore.YELLOW+f"[+] {'PORT':<8}{'STATUS' :<10}{'SERVICE':<12}{'BANNER'}")
+    print(Fore.RED+"="*70)
+    for r in results:
+        print(f"[+] {r['port']:<8}{r['status']:<10}{r['service']:<12}{r['banner'][:60]}")
+    print(Fore.RED+"\n"+"="*70)
+    print(Fore.YELLOW+"[+] Vulnerability Report")
+    print(Fore.RED+"="*70)
+    found=0
+    for r in results:
+        if r["vuln"]:
+            found+=1
+            sev,cve,desc=r["vuln"]
+            print(f"[+] {r['port']}/tcp [{sev}] {cve} - {desc}")
+
+    open_ports = sum(1 for r in results if r["status"] == "OPEN")
+    closed_ports = sum(1 for r in results if r["status"] == "CLOSED")
+
+    print(f"[+] Open ports : {open_ports}")
+    print(f"[+] Closed ports : {closed_ports}")
+    print(f"[+] Findings   : {found}")
+    print(f"[+] Time       : {time.time()-start_t:.2f}s")
+    save(results)
+    print("[✓] Reports: scan_report.txt, scan_report.csv")
+
+if __name__=="__main__":
+    main()
