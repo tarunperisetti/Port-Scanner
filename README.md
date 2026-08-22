@@ -73,56 +73,13 @@ python3 port.py
 
 The program will display the PORT PY banner and ask for a target.
 
----
 
-## 💻 Usage
-
-### Default Scan
-
-Run:
-
-```bash
-python3 port.py
-```
-
-Enter a hostname or IP address when prompted:
-
-```text
-[+] Target : 192.168.1.10
-```
-
-Then select:
-
-```text
-[1] Default Scan
-[2] Custom Range
-[+] >
-```
-
-Choosing `1` scans the following default ports:
-
-```text
-21, 22, 23, 25, 53, 80, 110, 139, 143, 443, 445, 3389
-```
-
-### Custom Port Range
-
-Choose option `2`:
-
-```text
-Start: 1
-End: 1000
-```
-
-The scanner then checks every TCP port from the starting port through the ending port.
-
----
 
 ## 📋 Example Output
 
 ```text
 ===================================================================================
-                         P O R T  P Y
+                                   P O R T  P Y
                            PORT PY v1.0 (Starter Edition)
 ===================================================================================
 
@@ -138,8 +95,8 @@ The scanner then checks every TCP port from the starting port through the ending
 [+] 22      OPEN      ssh         SSH-2.0-OpenSSH_7.2
 [+] 80      OPEN      http        HTTP/1.1 200 OK
 [+] 443     CLOSED   https       N/A
-======================================================================
 
+======================================================================
 [+] Vulnerability Report
 ======================================================================
 [+] 22/tcp [MEDIUM] Multiple CVEs - Outdated OpenSSH
