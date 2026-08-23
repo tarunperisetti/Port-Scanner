@@ -1,9 +1,10 @@
-```bash
-pip install pyfiglet colorama
-```
+If you are using windows use this:
+--> pip install pyfiglet colorama
 
 If you are using Kali Linux, you can also use:
+--> python3 -m pip install pyfiglet colorama
 
-```bash
-python3 -m pip install pyfiglet colorama
-```
+If you are using Kali Linux download this font to avoid errors:
+--> cd /usr/share/figlet/
+--> sudo wget https://raw.githubusercontent.com/xero/figlet-fonts/master/ANSI%20Shadow.flf
+--> sudo mv "ANSI Shadow.flf" ansi_shadow.flf
