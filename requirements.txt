@@ -1,0 +1,9 @@
+```bash
+pip install pyfiglet colorama
+```
+
+If you are using Kali Linux, you can also use:
+
+```bash
+python3 -m pip install pyfiglet colorama
+```
