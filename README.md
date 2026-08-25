@@ -124,47 +124,6 @@ PORT-PY/
 
 ---
 
-## 🧠 How It Works
-
-The scanning process follows these main steps:
-
-```text
-Target Host
-    │
-    ▼
-DNS / Host Resolution
-    │
-    ▼
-Select Default or Custom Ports
-    │
-    ▼
-Create Worker Threads
-    │
-    ▼
-TCP Connect Scan
-    │
-    ├── Connection succeeds ──► OPEN
-    │                              │
-    │                              ▼
-    │                         Banner Grab
-    │                              │
-    │                              ▼
-    │                       Signature Matching
-    │
-    └── Connection fails ───► CLOSED
-    │
-    ▼
-Sort Results by Port
-    │
-    ▼
-Display Scan & Vulnerability Reports
-    │
-    ▼
-Export TXT + CSV
-```
-
----
-
 ## 🔧 Implementation Details
 
 ### Multi-threading
