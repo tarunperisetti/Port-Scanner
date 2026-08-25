@@ -12,7 +12,8 @@ except ImportError:
 
 init(autoreset=True)
 
-DEFAULT_PORTS=[21,22,23,25,53,80,110,139,143,443,445,3389]
+DEFAULT_PORTS=[21, 22, 23, 25, 53, 80, 110, 139, 143, 443, 445, 3306, 3389, 5432, 6379, 8080,
+8443, 27017]
 
 VULNS={
     "Apache/2.4.49":("HIGH","CVE-2021-41773","Path Traversal / Possible RCE"),
