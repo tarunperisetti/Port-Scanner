@@ -2,7 +2,7 @@ from scan.scan import scan,resolve
 from vulns.vuln_report import r_vulns
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import pyfiglet
-from colorama import Fore, Style, init
+from colorama import Fore,init
 
 init(autoreset=True)
 
@@ -48,7 +48,6 @@ def main():
     r_vulns(results)    
   
     print("[✓] Scanning Completed...")
-    print(Fore.RED + "\n" + "=" * 70)
     
 
 if __name__=="__main__":
