@@ -31,7 +31,7 @@ def main():
         ports=range(start,end+1)
 
     results=[]
-    with ThreadPoolExecutor(max_workers=200) as ex:
+    with ThreadPoolExecutor(max_workers=50) as ex:
         futures=[ex.submit(scan,ip,p) for p in ports]
         for f in as_completed(futures):
             r=f.result()
