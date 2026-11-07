@@ -22,7 +22,7 @@ def grab(sock,port):
     
 def scan(ip,port):
     s=socket.socket()
-    s.settimeout(2)
+    s.settimeout(3)
     try:
         if s.connect_ex((ip,port))==0:
             b=grab(s,port)
