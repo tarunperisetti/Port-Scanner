@@ -48,7 +48,6 @@ PORT PY checks returned banners against predefined signatures:
 - **Concurrency:** `concurrent.futures.ThreadPoolExecutor`
 - **ASCII Banner:** PyFiglet
 - **Terminal Colors:** Colorama
-- **Reporting:** Python `csv`
 - **Timing:** Python `time`
 
 
@@ -73,43 +72,6 @@ python3 port.py
 
 The program will display the PORT PY banner and ask for a target.
 
-
-
-## 📋 Example Output
-
-```text
-===================================================================================
-                                   P O R T  P Y
-                           PORT PY v1.0 (Starter Edition)
-===================================================================================
-
-[+] Target : 192.168.1.10
-[+] Target IP : 192.168.1.10
-[1] Default Scan
-[2] Custom Range
-[+] > 1
-
-======================================================================
-[+] PORT    STATUS    SERVICE     BANNER
-======================================================================
-[+] 22      OPEN      ssh         SSH-2.0-OpenSSH_7.2
-[+] 80      OPEN      http        HTTP/1.1 200 OK
-[+] 443     CLOSED   https       N/A
-
-======================================================================
-[+] Vulnerability Report
-======================================================================
-[+] 22/tcp [MEDIUM] Multiple CVEs - Outdated OpenSSH
-
-[+] Open ports : 2
-[+] Closed ports : 1
-[+] Findings   : 1
-[+] Time       : 2.14s
-[✓] Reports: scan_report.txt, scan_report.csv
-```
-
-> The output above is an example for documentation purposes. Actual results depend on the target.
-
 ---
 
 ## 📁 Project Structure
@@ -117,8 +79,11 @@ The program will display the PORT PY banner and ask for a target.
 ```text
 PORT-PY/
 ├── port.py
-├── scan_report.txt       # Generated after a scan
-├── scan_report.csv       # Generated after a scan
+├── scan
+├   └── scan.py
+├── vulns
+├   ├── vuln_report.py
+├   └── vuln.py      
 └── README.md
 ```
 
@@ -171,24 +136,6 @@ Severity
 CVE / Reference
 Description
 ```
----
-
-## 📄 Report Formats
-
-### CSV
-
-The generated `scan_report.csv` contains:
-
-```text
-Port,Status,Service,Banner,Severity,CVE,Description
-```
-
-This makes the output convenient for opening in spreadsheet applications or processing with other scripts.
-
-### TXT
-
-The generated `scan_report.txt` stores each scan result as a Python dictionary representation.
-
 ---
 
 ## ⚠️ Limitations
